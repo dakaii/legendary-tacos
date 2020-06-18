@@ -7,6 +7,9 @@ import createSagaMiddleware from 'redux-saga';
 import MovieReducer from '../reducers/MovieReducer';
 import Sagas from '../sagas/Sagas';
 import { Dashboard } from './Dashboard';
+import { SignUp } from './SignUp';
+import { SignIn } from './SignIn';
+import { SignInSide } from './SignInSide';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -24,6 +27,13 @@ export const App = () => {
                 <HashRouter>
                     <Switch>
                         <Route exact path="/" component={Dashboard} />
+                        <Route exact path="/signup" component={SignUp} />
+                        <Route exact path="/signin" component={SignIn} />
+                        <Route
+                            exact
+                            path="/signinslide"
+                            component={SignInSide}
+                        />
                     </Switch>
                 </HashRouter>
             </Provider>
