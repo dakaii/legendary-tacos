@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import NavBar from './NavBar';
+import NavBar from '../components/NavBar';
 import UpcomingMovieList from './UpcomingMovieList';
 
 class Dashboard extends Component {
@@ -7,7 +7,6 @@ class Dashboard extends Component {
         return (
             <Fragment>
                 <NavBar/>
-                <UpcomingMovieList />
             </Fragment>
         );
     }
