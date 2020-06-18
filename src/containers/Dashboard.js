@@ -1,15 +1,10 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import NavBar from '../components/NavBar';
-import UpcomingMovieList from './UpcomingMovieList';
 
-class Dashboard extends Component {
-    render() {
-        return (
-            <Fragment>
-                <NavBar/>
-            </Fragment>
-        );
-    }
-}
-
-export default Dashboard;
+export const Dashboard = () => {
+    return (
+        <Fragment>
+            <NavBar />
+        </Fragment>
+    );
+};
