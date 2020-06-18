@@ -1,20 +1,22 @@
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import TypoGraphy from '@material-ui/core/Typography';
+import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import { Link } from 'react-router-dom';
 
 export default () => {
+    const classes = useStyles();
     return (
-        <AppBar color="primary" position="static">
-            <Toolbar>
-                <TypoGraphy variant="h5" color="inherit">
-                    Legendary Tacos
-                </TypoGraphy>
-                <List component="nav">
+        <React.Fragment>
+            <AppBar color="default" position="static">
+                <Toolbar>
+                    <Typography
+                        variant="h5"
+                        className={classes.title}
+                        color="inherit"
+                    >
+                        Legendary Tacos
+                    </Typography>
+                    {/* <List component="nav">
                     <ListItem component="div">
                         <ListItemText inset>
                             <Link to="/" style={styles.link}>
@@ -28,15 +30,26 @@ export default () => {
                             </Link>
                         </ListItemText>
                     </ListItem>
-                </List>
-            </Toolbar>
-        </AppBar>
+                </List> */}
+                    <Button component={Link} to="/login" color="primary">
+                        Log In
+                    </Button>
+                    <Button
+                        component={Link}
+                        to="/signup"
+                        variant="contained"
+                        color="primary"
+                    >
+                        Sign Up
+                    </Button>
+                </Toolbar>
+            </AppBar>
+        </React.Fragment>
     );
 };
 
-const styles = {
-    link: {
-        color: 'white',
-        textDecoration: 'none',
+const useStyles = makeStyles((theme) => ({
+    title: {
+        flexGrow: 1,
     },
-};
+}));

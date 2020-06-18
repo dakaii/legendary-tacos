@@ -1,15 +1,17 @@
-import React, { Fragment } from 'react';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
+import { PrivateRoute } from '../components/PrivateRoute';
 import MovieReducer from '../reducers/MovieReducer';
 import Sagas from '../sagas/Sagas';
 import { Dashboard } from './Dashboard';
+import { Landing } from './Landing';
+import { LogIn } from './LogIn';
 import { SignUp } from './SignUp';
-import { SignIn } from './SignIn';
-import { SignInSide } from './SignInSide';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -20,23 +22,29 @@ const store = createStore(
 
 sagaMiddleware.run(Sagas);
 
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#07C',
+        },
+        secondary: {
+            main: '#E33E7F',
+        },
+    },
+});
 export const App = () => {
     return (
-        <Fragment>
+        <MuiThemeProvider theme={theme}>
             <Provider store={store}>
                 <HashRouter>
                     <Switch>
-                        <Route exact path="/" component={Dashboard} />
+                        <Route exact path="/" component={Landing} />
                         <Route exact path="/signup" component={SignUp} />
-                        <Route exact path="/signin" component={SignIn} />
-                        <Route
-                            exact
-                            path="/signinslide"
-                            component={SignInSide}
-                        />
+                        <Route exact path="/login" component={LogIn} />
+                        <PrivateRoute path="/dashboard" component={Dashboard} />
                     </Switch>
                 </HashRouter>
             </Provider>
-        </Fragment>
+        </MuiThemeProvider>
     );
 };

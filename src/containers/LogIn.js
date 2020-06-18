@@ -1,15 +1,17 @@
-import Avatar from '@material-ui/core/Avatar';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
+import {
+    Avatar,
+    Box,
+    Button,
+    Checkbox,
+    CssBaseline,
+    FormControlLabel,
+    Grid,
+    Link,
+    Paper,
+    TextField,
+    Typography,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import React from 'react';
 
@@ -59,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const SignInSide = () => {
+export const LogIn = () => {
     const classes = useStyles();
 
     return (
@@ -80,7 +82,7 @@ export const SignInSide = () => {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Log in
                     </Typography>
                     <form className={classes.form} noValidate>
                         <TextField
@@ -88,10 +90,10 @@ export const SignInSide = () => {
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
+                            id="username"
+                            label="User Name"
+                            name="username"
+                            autoComplete="username"
                             autoFocus
                         />
                         <TextField
