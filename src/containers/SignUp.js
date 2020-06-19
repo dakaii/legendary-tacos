@@ -12,7 +12,9 @@ import {
     Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { signupRequest } from '../actions/AuthenticationAction';
 
 function Copyright() {
     return (
@@ -47,7 +49,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const SignUp = () => {
+    const dispatch = useDispatch();
     const classes = useStyles();
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     return (
         <Container component="main" maxWidth="xs">
@@ -59,17 +65,32 @@ export const SignUp = () => {
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
-                <form className={classes.form} noValidate>
+                <form
+                    className={classes.form}
+                    noValidate
+                    onSubmit={() =>
+                        dispatch(
+                            signupRequest({
+                                username: username,
+                                email: email,
+                                password: password,
+                            })
+                        )
+                    }
+                >
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
-                                autoComplete="fname"
+                                autoComplete="username"
                                 name="username"
                                 variant="outlined"
                                 required
                                 fullWidth
                                 id="username"
                                 label="User Name"
+                                onChange={(event) =>
+                                    setUsername(event.target.value)
+                                }
                                 autoFocus
                             />
                         </Grid>
@@ -81,6 +102,10 @@ export const SignUp = () => {
                                 id="email"
                                 label="Email Address"
                                 name="email"
+                                onChange={(event) =>
+                                    setEmail(event.target.value)
+                                }
+                                error={!!email && !validateEmail(email)}
                                 autoComplete="email"
                             />
                         </Grid>
@@ -93,6 +118,9 @@ export const SignUp = () => {
                                 label="Password"
                                 type="password"
                                 id="password"
+                                onChange={(event) =>
+                                    setPassword(event.target.value)
+                                }
                                 autoComplete="current-password"
                             />
                         </Grid>
@@ -131,4 +159,10 @@ export const SignUp = () => {
             </Box>
         </Container>
     );
+};
+
+const validateEmail = (email) => {
+    // eslint-disable-next-line no-useless-escape
+    const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    return re.test(String(email).toLowerCase());
 };

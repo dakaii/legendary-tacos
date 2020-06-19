@@ -17,12 +17,12 @@ export const DEFAULT_STATE = {
 
 export default (state = DEFAULT_STATE, action = {}) => {
     switch (action.type) {
-        case types.LOGIN_REQUESTED:
+        case types.LOGIN_REQUEST:
             return {
                 ...state,
                 isLoading: true,
             };
-        case types.LOGIN_SUCCEEDED:
+        case types.LOGIN_SUCCESS:
             return {
                 ...state,
                 configuration: action.payload,

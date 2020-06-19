@@ -2,15 +2,28 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { config } from '../constants/Constants';
 import * as types from '../actions/Types';
 
-async function* requestLogIn(action) {
+function* requestLogIn(action) {
     const url = `${config.API_URL}`;
 
-    const response = yield fetch(url);
-    const json = await response.json();
-
-    yield put({ type: types.LOGIN_SUCCEEDED, payload: json });
+    try {
+        const response = yield fetch(url);
+        yield put({ type: types.LOGIN_SUCCESS, payload: response.json() });
+    } catch (error) {
+        console.log(error);
+    }
 }
 
+function* requestSignup(action) {
+    console.log(action)
+    const url = `${config.API_URL}`;
+
+    try {
+        const response = yield fetch(url);
+        yield put({ type: types.SIGNUP_SUCCESS, payload: response.json() });
+    } catch (error) {
+        console.log(error);
+    }
+}
 // function* getConfiguration() {
 //     const url = `${MOVIE_DB_API_URL}/configuration?api_key=${API_KEY}`;
 
@@ -53,7 +66,8 @@ async function* requestLogIn(action) {
 // }
 
 export default function* () {
-    yield takeLatest(types.LOGIN_REQUESTED, requestLogIn);
+    yield takeLatest(types.LOGIN_REQUEST, requestLogIn);
+    yield takeLatest(types.SIGNUP_REQUEST, requestSignup);
     // yield takeLatest(types.GET_CONFIG_REQUESTED, getConfiguration);
     // yield takeLatest(types.GET_GENRES_REQUESTED, getGenres);
     // yield takeLatest(types.ADD_TO_WATCHLIST_REQUESTED, addToWatchList);

@@ -1,11 +1,21 @@
 import * as types from './Types';
 
-export const requestLogin = (params) => ({
-    type: types.LOGIN_REQUESTED,
+export const loginRequest = (params) => ({
+    type: types.LOGIN_REQUEST,
     params,
 });
 
-export const requestSignup = (params) => ({
-    type: types.SIGNUP_REQUESTED,
+// export const loginSuccess = (params) => ({
+//     type: types.LOGIN_SUCCESS,
+//     params,
+// });
+
+export const signupRequest = (params) => ({
+    type: types.SIGNUP_REQUEST,
     params,
 });
+
+// export const signupSuccess = (params) => ({
+//     type: types.SIGNUP_SUCCESS,
+//     params,
+// });
