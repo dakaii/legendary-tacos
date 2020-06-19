@@ -55,6 +55,17 @@ export const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const submitRequest = (event) => {
+        event.preventDefault();
+        dispatch(
+            signupRequest({
+                username: username,
+                email: email,
+                password: password,
+            })
+        );
+    };
+
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -67,16 +78,9 @@ export const SignUp = () => {
                 </Typography>
                 <form
                     className={classes.form}
-                    noValidate
-                    onSubmit={() =>
-                        dispatch(
-                            signupRequest({
-                                username: username,
-                                email: email,
-                                password: password,
-                            })
-                        )
-                    }
+                    onSubmit={(event) => {
+                        submitRequest(event);
+                    }}
                 >
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -88,9 +92,9 @@ export const SignUp = () => {
                                 fullWidth
                                 id="username"
                                 label="User Name"
-                                onChange={(event) =>
-                                    setUsername(event.target.value)
-                                }
+                                onChange={(e) => setUsername(e.target.value)}
+                                error={!!username && !isUsernameValid(username)}
+                                helperText={usernameHelperText(username)}
                                 autoFocus
                             />
                         </Grid>
@@ -102,15 +106,9 @@ export const SignUp = () => {
                                 id="email"
                                 label="Email Address"
                                 name="email"
-                                onChange={(event) =>
-                                    setEmail(event.target.value)
-                                }
-                                error={!!email && !validateEmail(email)}
-                                helperText={
-                                    !!email && !validateEmail(email)
-                                        ? 'Invalid email'
-                                        : ''
-                                }
+                                onChange={(e) => setEmail(e.target.value)}
+                                error={!!email && !isEmailValid(email)}
+                                helperText={emailHelperText(email)}
                                 autoComplete="email"
                             />
                         </Grid>
@@ -123,9 +121,9 @@ export const SignUp = () => {
                                 label="Password"
                                 type="password"
                                 id="password"
-                                onChange={(event) =>
-                                    setPassword(event.target.value)
-                                }
+                                onChange={(e) => setPassword(e.target.value)}
+                                error={!!password && !isPasswordValid(password)}
+                                helperText={passwordHelperText(password)}
                                 autoComplete="current-password"
                             />
                         </Grid>
@@ -147,6 +145,11 @@ export const SignUp = () => {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        disabled={
+                            !isUsernameValid(username) ||
+                            !isEmailValid(email) ||
+                            !isPasswordValid(password)
+                        }
                     >
                         Sign Up
                     </Button>
@@ -166,8 +169,27 @@ export const SignUp = () => {
     );
 };
 
-const validateEmail = (email) => {
+const isUsernameValid = (username) => {
+    return username.length > 3;
+};
+
+const isEmailValid = (email) => {
     // eslint-disable-next-line no-useless-escape
     const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     return re.test(String(email).toLowerCase());
+};
+
+const isPasswordValid = (username) => {
+    return username.length > 6;
+};
+
+const usernameHelperText = (username) => {
+    return !!username && !isUsernameValid(username) ? 'invalid username' : '';
+};
+const emailHelperText = (email) => {
+    return !!email && !isEmailValid(email) ? 'invalid email' : '';
+};
+
+const passwordHelperText = (password) => {
+    return !!password && !isPasswordValid(password) ? 'invalid password' : '';
 };

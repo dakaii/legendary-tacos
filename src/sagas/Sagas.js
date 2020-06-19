@@ -14,11 +14,18 @@ function* requestLogIn(action) {
 }
 
 function* requestSignup(action) {
-    console.log(action)
+    console.log(action);
     const url = `${config.API_URL}`;
 
     try {
-        const response = yield fetch(url);
+        const response = yield fetch(url, {
+            method: 'post',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(action.params),
+        });
         yield put({ type: types.SIGNUP_SUCCESS, payload: response.json() });
     } catch (error) {
         console.log(error);
