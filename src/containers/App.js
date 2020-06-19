@@ -6,7 +6,7 @@ import { applyMiddleware, createStore } from 'redux';
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { PrivateRoute } from '../components/PrivateRoute';
-import MovieReducer from '../reducers/MovieReducer';
+import reducer from '../reducers/rootReducer';
 import Sagas from '../sagas/Sagas';
 import { Dashboard } from './Dashboard';
 import { Landing } from './Landing';
@@ -15,10 +15,7 @@ import { SignUp } from './SignUp';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(
-    MovieReducer,
-    applyMiddleware(sagaMiddleware, logger)
-);
+const store = createStore(reducer, applyMiddleware(sagaMiddleware, logger));
 
 sagaMiddleware.run(Sagas);
 

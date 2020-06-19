@@ -13,7 +13,9 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { loginRequest } from '../actions/AuthenticationAction';
 
 function Copyright() {
     return (
@@ -62,7 +64,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const LogIn = () => {
+    const dispatch = useDispatch();
     const classes = useStyles();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const submitRequest = (event) => {
+        event.preventDefault();
+        dispatch(
+            loginRequest({
+                username: username,
+                password: password,
+            })
+        );
+    };
 
     return (
         <Grid container component="main" className={classes.root}>
@@ -84,7 +99,10 @@ export const LogIn = () => {
                     <Typography component="h1" variant="h5">
                         Log in
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    <form
+                        className={classes.form}
+                        onSubmit={(e) => submitRequest(e)}
+                    >
                         <TextField
                             variant="outlined"
                             margin="normal"
@@ -94,6 +112,9 @@ export const LogIn = () => {
                             label="User Name"
                             name="username"
                             autoComplete="username"
+                            onChange={(e) => setUsername(e.target.value)}
+                            error={!!username && !isUsernameValid(username)}
+                            helperText={usernameHelperText(username)}
                             autoFocus
                         />
                         <TextField
@@ -105,6 +126,9 @@ export const LogIn = () => {
                             label="Password"
                             type="password"
                             id="password"
+                            onChange={(e) => setPassword(e.target.value)}
+                            error={!!password && !isPasswordValid(password)}
+                            helperText={passwordHelperText(password)}
                             autoComplete="current-password"
                         />
                         <FormControlLabel
@@ -119,6 +143,10 @@ export const LogIn = () => {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            disabled={
+                                !isUsernameValid(username) ||
+                                !isPasswordValid(password)
+                            }
                         >
                             Sign In
                         </Button>
@@ -142,4 +170,20 @@ export const LogIn = () => {
             </Grid>
         </Grid>
     );
+};
+
+const isUsernameValid = (username) => {
+    return username.length > 6;
+};
+
+const isPasswordValid = (username) => {
+    return username.length > 6;
+};
+
+const usernameHelperText = (username) => {
+    return !!username && !isUsernameValid(username) ? 'invalid username' : '';
+};
+
+const passwordHelperText = (password) => {
+    return !!password && !isPasswordValid(password) ? 'invalid password' : '';
 };

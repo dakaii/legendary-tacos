@@ -170,7 +170,7 @@ export const SignUp = () => {
 };
 
 const isUsernameValid = (username) => {
-    return username.length > 3;
+    return username.length > 6;
 };
 
 const isEmailValid = (email) => {

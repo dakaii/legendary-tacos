@@ -1,16 +1,9 @@
 import * as types from '../actions/Types';
 
 export const DEFAULT_STATE = {
-    genres: {
-        genres: [],
-        isLoading: false,
-    },
-    upcomingMovies: {
-        results: [],
-        isLoading: false,
-    },
-    watchList: {
-        currentList: [],
+    authentication: {
+        access: null,
+        refresh: null,
         isLoading: false,
     },
 };
@@ -20,12 +13,23 @@ export default (state = DEFAULT_STATE, action = {}) => {
         case types.LOGIN_REQUEST:
             return {
                 ...state,
+                authentication: action.payload,
                 isLoading: true,
             };
         case types.LOGIN_SUCCESS:
             return {
                 ...state,
-                configuration: action.payload,
+                authentication: action.payload,
+                isLoading: false,
+            };
+        case types.SIGNUP_REQUEST:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case types.SIGNUP_SUCCESS:
+            return {
+                ...state,
                 isLoading: false,
             };
         // case types.GET_CONFIG_FAILED:
