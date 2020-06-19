@@ -106,6 +106,11 @@ export const SignUp = () => {
                                     setEmail(event.target.value)
                                 }
                                 error={!!email && !validateEmail(email)}
+                                helperText={
+                                    !!email && !validateEmail(email)
+                                        ? 'Invalid email'
+                                        : ''
+                                }
                                 autoComplete="email"
                             />
                         </Grid>
@@ -147,7 +152,7 @@ export const SignUp = () => {
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link href="#/login" variant="body2">
                                 Already have an account? Sign in
                             </Link>
                         </Grid>
