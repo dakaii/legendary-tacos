@@ -2,7 +2,7 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, compose, createStore } from 'redux';
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { PrivateRoute } from '../components/PrivateRoute';
@@ -13,9 +13,21 @@ import { Landing } from './Landing';
 import { LogIn } from './LogIn';
 import { SignUp } from './SignUp';
 
-const sagaMiddleware = createSagaMiddleware();
+const isDevMode =
+    !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
 
-const store = createStore(reducer, applyMiddleware(sagaMiddleware, logger));
+const composeEnhancers =
+    typeof window === 'object' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
+    isDevMode
+        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+        : compose;
+
+const sagaMiddleware = createSagaMiddleware();
+const middleware = [sagaMiddleware, logger];
+const enhancer = composeEnhancers(applyMiddleware(...middleware));
+
+const store = createStore(reducer, enhancer);
 
 sagaMiddleware.run(Sagas);
 
@@ -36,9 +48,9 @@ export const App = () => {
                 <HashRouter>
                     <Switch>
                         <Route exact path="/" component={Landing} />
-                        <Route exact path="/signup" component={SignUp} />
-                        <Route exact path="/login" component={LogIn} />
-                        <PrivateRoute path="/dashboard" component={Dashboard} />
+                        <PrivateRoute exact path="/signup" component={SignUp} />
+                        <PrivateRoute exact path="/login" component={LogIn} />
+                        <PrivateRoute exact path="/dashboard" component={Dashboard} />
                     </Switch>
                 </HashRouter>
             </Provider>

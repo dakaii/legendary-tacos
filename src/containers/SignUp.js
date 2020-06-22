@@ -50,10 +50,10 @@ const useStyles = makeStyles((theme) => ({
 
 export const SignUp = () => {
     const dispatch = useDispatch();
-    const classes = useStyles();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const classes = useStyles();
 
     const submitRequest = (event) => {
         event.preventDefault();

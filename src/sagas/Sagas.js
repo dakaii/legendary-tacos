@@ -17,8 +17,9 @@ function* requestLogIn(action) {
     } catch (error) {
         console.log(error);
     }
-    if (response && response.status === 201) {
+    if (response && response.status === 200) {
         const payload = yield response.json();
+        localStorage.setItem('access', payload['access']);
         yield put({ type: types.LOGIN_SUCCESS, payload: payload });
     } else {
         yield put({ type: types.LOGIN_FAILURE });
@@ -42,7 +43,14 @@ function* requestSignup(action) {
     }
     if (response && response.status === 201) {
         const payload = yield response.json();
+        localStorage.setItem('access', payload['access']);
         yield put({ type: types.SIGNUP_SUCCESS, payload: payload });
+    } else if (response && response.status === 400) {
+        const payload = yield response.json();
+        yield put({
+            type: types.SIGNUP_SUCCESS,
+            payload: payload,
+        });
     } else {
         yield put({ type: types.SIGNUP_FAILURE });
     }

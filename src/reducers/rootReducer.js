@@ -1,7 +1,7 @@
 import * as types from '../actions/Types';
 
 export const DEFAULT_STATE = {
-    authentication: {
+    auth: {
         access: null,
         refresh: null,
         isLoading: false,
@@ -13,23 +13,37 @@ export default (state = DEFAULT_STATE, action = {}) => {
         case types.LOGIN_REQUEST:
             return {
                 ...state,
-                authentication: action.payload,
+                auth: action.payload,
                 isLoading: true,
             };
         case types.LOGIN_SUCCESS:
             return {
                 ...state,
-                authentication: action.payload,
+                auth: action.payload,
+                isLoading: false,
+            };
+        case types.LOGIN_FAILURE:
+            return {
+                ...state,
+                auth: action.payload,
                 isLoading: false,
             };
         case types.SIGNUP_REQUEST:
             return {
                 ...state,
+                auth: action.payload,
                 isLoading: true,
             };
         case types.SIGNUP_SUCCESS:
             return {
                 ...state,
+                auth: action.payload,
+                isLoading: false,
+            };
+        case types.SIGNUP_FAILURE:
+            return {
+                ...state,
+                auth: action.payload,
                 isLoading: false,
             };
         // case types.GET_CONFIG_FAILED:
