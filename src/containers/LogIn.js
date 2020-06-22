@@ -9,12 +9,14 @@ import {
     Link,
     Paper,
     TextField,
-    Typography
+    Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import jwtDecode from 'jwt-decode';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { loginRequest } from '../actions/AuthenticationAction';
 import { Copyright } from '../components/Copyright';
 
@@ -53,9 +55,23 @@ const useStyles = makeStyles((theme) => ({
 
 export const LogIn = () => {
     const dispatch = useDispatch();
-    const classes = useStyles();
+    const history = useHistory();
+    const auth = useSelector((state) => state.auth);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const classes = useStyles();
+
+    useEffect(() => {
+        const token = localStorage.getItem('access');
+        if (token) {
+            const tokenExpiration = jwtDecode(token).exp;
+            const dateNow = new Date();
+
+            if (tokenExpiration > dateNow.getTime() / 1000) {
+                history.push('/dashboard');
+            }
+        }
+    }, [auth, history]);
 
     const submitRequest = (event) => {
         event.preventDefault();

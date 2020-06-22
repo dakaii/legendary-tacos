@@ -48,9 +48,13 @@ export const App = () => {
                 <HashRouter>
                     <Switch>
                         <Route exact path="/" component={Landing} />
-                        <PrivateRoute exact path="/signup" component={SignUp} />
-                        <PrivateRoute exact path="/login" component={LogIn} />
-                        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                        <Route exact path="/signup" component={SignUp} />
+                        <Route exact path="/login" component={LogIn} />
+                        <PrivateRoute
+                            exact
+                            path="/dashboard"
+                            component={Dashboard}
+                        />
                     </Switch>
                 </HashRouter>
             </Provider>
