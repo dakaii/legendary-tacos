@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
-import NavBar from '../components/NavBar';
+import Header from '../components/Header';
 
 export const Landing = () => {
     return (
         <Fragment>
-            <NavBar />
+            <Header />
         </Fragment>
     );
 };
