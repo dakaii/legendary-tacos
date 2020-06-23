@@ -37,7 +37,7 @@ export default function Header(props) {
                     component="h2"
                     variant="h5"
                     color="inherit"
-                    align="center"
+                    align="left"
                     noWrap
                     className={classes.toolbarTitle}
                 >
@@ -64,7 +64,7 @@ export default function Header(props) {
                     Sign Up
                 </Button>
             </Toolbar>
-            <Toolbar
+            {/* <Toolbar
                 component="nav"
                 variant="dense"
                 className={classes.toolbarSecondary}
@@ -81,12 +81,12 @@ export default function Header(props) {
                         {section.title}
                     </Link>
                 ))}
-            </Toolbar>
+            </Toolbar> */}
         </React.Fragment>
     );
 }
 
 Header.propTypes = {
-    sections: PropTypes.array,
+    // sections: PropTypes.array,
     title: PropTypes.string,
 };

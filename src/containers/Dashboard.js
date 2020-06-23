@@ -2,6 +2,7 @@ import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import TwitterIcon from '@material-ui/icons/Twitter';
@@ -9,12 +10,13 @@ import React from 'react';
 import FeaturedPost from '../components/FeaturedPost';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import MainFeaturedPost from '../components/MainFeaturedPost';
-import Sidebar from '../components/Sidebar';
 
 const useStyles = makeStyles((theme) => ({
+    title: {
+        padding: theme.spacing(3),
+    },
     mainGrid: {
-        marginTop: theme.spacing(3),
+        margin: theme.spacing(0, 12),
     },
 }));
 
@@ -48,6 +50,7 @@ const featuredPosts = [
             'This is a wider card with supporting text below as a natural lead-in to additional content.',
         image: 'https://source.unsplash.com/random',
         imageText: 'Image Text',
+        url: '#/dashboard',
     },
     {
         title: 'Post title',
@@ -56,6 +59,7 @@ const featuredPosts = [
             'This is a wider card with supporting text below as a natural lead-in to additional content.',
         image: 'https://source.unsplash.com/random',
         imageText: 'Image Text',
+        url: '#/dashboard',
     },
 ];
 
@@ -90,9 +94,23 @@ export const Dashboard = () => {
         <React.Fragment>
             <CssBaseline />
             <Container maxWidth="lg">
-                <Header title="Legendary Tacos" sections={sections} />
+                <Header
+                    className={classes.title}
+                    title="Legendary Tacos"
+                    sections={sections}
+                />
                 <main>
-                    <MainFeaturedPost post={mainFeaturedPost} />
+                    <div className={classes.title}>
+                        <Typography variant="h4" component="h4">
+                            Account Settings
+                        </Typography>
+                    </div>
+                    <Grid container spacing={1} className={classes.mainGrid}>
+                        {featuredPosts.map((post) => (
+                            <FeaturedPost key={post.title} post={post} />
+                        ))}
+                    </Grid>
+                    {/* <MainFeaturedPost post={mainFeaturedPost} />
                     <Grid container spacing={4}>
                         {featuredPosts.map((post) => (
                             <FeaturedPost key={post.title} post={post} />
@@ -105,7 +123,7 @@ export const Dashboard = () => {
                             archives={sidebar.archives}
                             social={sidebar.social}
                         />
-                    </Grid>
+                    </Grid> */}
                 </main>
             </Container>
             <Footer
