@@ -67,6 +67,7 @@ export const SignUp = () => {
                 username: username,
                 email: email,
                 password: password,
+                category: 1,
             })
         );
     };

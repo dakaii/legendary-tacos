@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Header(props) {
+export const Header = (props) => {
     const classes = useStyles();
     const { sections, title } = props;
 
@@ -81,7 +81,7 @@ export default function Header(props) {
             </AppBar>
         </React.Fragment>
     );
-}
+};
 
 Header.propTypes = {
     // sections: PropTypes.array,

@@ -46,6 +46,24 @@ export default (state = DEFAULT_STATE, action = {}) => {
                 auth: action.payload,
                 isLoading: false,
             };
+        case types.GET_ORGANIZATION_REQUEST:
+            return {
+                ...state,
+                organization: action.payload,
+                isLoading: true,
+            };
+        case types.GET_ORGANIZATION_SUCCESS:
+            return {
+                ...state,
+                organization: action.payload,
+                isLoading: false,
+            };
+        case types.GET_ORGANIZATION_FAILURE:
+            return {
+                ...state,
+                organization: action.payload,
+                isLoading: false,
+            };
         // case types.GET_CONFIG_FAILED:
         //     return {
         //         ...state,

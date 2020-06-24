@@ -19,3 +19,7 @@ export const signupRequest = (params) => ({
 //     type: types.SIGNUP_SUCCESS,
 //     params,
 // });
+
+export const getOrganizationRequest = () => ({
+    type: types.GET_ORGANIZATION_REQUEST,
+});

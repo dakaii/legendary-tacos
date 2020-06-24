@@ -8,8 +8,8 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import React from 'react';
 import FeaturedPost from '../components/FeaturedPost';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
+import { Footer } from '../components/Footer';
+import { Header } from '../components/Header';
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -50,7 +50,7 @@ const featuredPosts = [
             'This is a wider card with supporting text below as a natural lead-in to additional content.',
         image: 'https://source.unsplash.com/random',
         imageText: 'Image Text',
-        url: '#/dashboard',
+        url: '#/organization-info',
     },
     {
         title: 'Post title',

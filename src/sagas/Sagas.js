@@ -55,6 +55,34 @@ function* requestSignup(action) {
         yield put({ type: types.SIGNUP_FAILURE });
     }
 }
+function* getOrganization(action) {
+    const url = `${config.API_URL}/api/business/organizations/`;
+    let response = null;
+    try {
+        response = yield fetch(url, {
+            method: 'get',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + localStorage.getItem('access'),
+            },
+        });
+    } catch (error) {
+        console.log(error);
+    }
+    if (response && response.status === 200) {
+        const payload = yield response.json();
+        yield put({ type: types.GET_ORGANIZATION_SUCCESS, payload: payload });
+    } else if (response && response.status === 400) {
+        const payload = yield response.json();
+        yield put({
+            type: types.GET_ORGANIZATION_SUCCESS,
+            payload: payload,
+        });
+    } else {
+        yield put({ type: types.GET_ORGANIZATION_FAILURE });
+    }
+}
 // function* getConfiguration() {
 //     const url = `${MOVIE_DB_API_URL}/configuration?api_key=${API_KEY}`;
 
@@ -99,6 +127,7 @@ function* requestSignup(action) {
 export default function* () {
     yield takeLatest(types.LOGIN_REQUEST, requestLogIn);
     yield takeLatest(types.SIGNUP_REQUEST, requestSignup);
+    yield takeLatest(types.GET_ORGANIZATION_REQUEST, getOrganization);
     // yield takeLatest(types.GET_CONFIG_REQUESTED, getConfiguration);
     // yield takeLatest(types.GET_GENRES_REQUESTED, getGenres);
     // yield takeLatest(types.ADD_TO_WATCHLIST_REQUESTED, addToWatchList);
