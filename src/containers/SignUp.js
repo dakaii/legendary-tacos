@@ -50,13 +50,8 @@ export const SignUp = () => {
 
     useEffect(() => {
         const token = localStorage.getItem('access');
-        if (token) {
-            const tokenExpiration = jwtDecode(token).exp;
-            const dateNow = new Date();
-
-            if (tokenExpiration > dateNow.getTime() / 1000) {
-                history.push('/dashboard');
-            }
+        if (token && jwtDecode(token).exp > Date.now() / 1000) {
+            history.push('/dashboard');
         }
     }, [auth, history]);
 

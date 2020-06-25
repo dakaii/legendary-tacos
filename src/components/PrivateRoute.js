@@ -8,17 +8,10 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
     useEffect(() => {
         const token = localStorage.getItem('access');
-        if (token) {
-            const tokenExpiration = jwtDecode(token).exp;
-            const dateNow = new Date();
-
-            if (tokenExpiration < dateNow.getTime() / 1000) {
-                setIsAuthenticated(false);
-            } else {
-                setIsAuthenticated(true);
-            }
-        } else {
+        if (!token || jwtDecode(token).exp < Date.now() / 1000) {
             setIsAuthenticated(false);
+        } else {
+            setIsAuthenticated(true);
         }
     }, [auth]);
 
