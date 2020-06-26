@@ -64,7 +64,7 @@ export const LogIn = () => {
     useEffect(() => {
         const token = localStorage.getItem('access');
         if (token && jwtDecode(token).exp > Date.now() / 1000) {
-            history.push('/dashboard');
+            history.push('/');
         }
     }, [auth, history]);
 

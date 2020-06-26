@@ -1,11 +1,11 @@
-import Button from '@material-ui/core/Button';
+import { AppBar } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AppBar } from '@material-ui/core';
+import { AccountMenu } from './AccountMenu';
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -14,19 +14,11 @@ const useStyles = makeStyles((theme) => ({
     toolbarTitle: {
         flex: 1,
     },
-    toolbarSecondary: {
-        justifyContent: 'space-between',
-        overflowX: 'auto',
-    },
-    toolbarLink: {
-        padding: theme.spacing(1),
-        flexShrink: 0,
-    },
 }));
 
-export const Header = (props) => {
+export const Navbar = (props) => {
     const classes = useStyles();
-    const { sections, title } = props;
+    const { title } = props;
 
     return (
         <React.Fragment>
@@ -42,6 +34,15 @@ export const Header = (props) => {
                     >
                         {title}
                     </Typography>
+                    <AccountMenu
+                        size="small"
+                        component={Link}
+                        to="/signup"
+                        variant="outlined"
+                        color="primary"
+                    >
+                        Sign Up
+                    </AccountMenu>
                     {/* <Button
                         size="small"
                         component={Link}
@@ -60,30 +61,11 @@ export const Header = (props) => {
                         Sign Up
                     </Button> */}
                 </Toolbar>
-                {/* <Toolbar
-                component="nav"
-                variant="dense"
-                className={classes.toolbarSecondary}
-            >
-                {sections.map((section) => (
-                    <Link
-                        color="inherit"
-                        noWrap
-                        key={section.title}
-                        variant="body2"
-                        href={section.url}
-                        className={classes.toolbarLink}
-                    >
-                        {section.title}
-                    </Link>
-                ))}
-            </Toolbar> */}
             </AppBar>
         </React.Fragment>
     );
 };
 
-Header.propTypes = {
-    // sections: PropTypes.array,
+Navbar.propTypes = {
     title: PropTypes.string,
 };

@@ -5,9 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { default as React, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import FeaturedPost from '../components/FeaturedPost';
 import { Footer } from '../components/Footer';
-import { Header } from '../components/Header';
+import { Navbar } from '../components/Navbar';
 import { getOrganizationRequest } from '../actions/AuthenticationAction';
 
 const useStyles = makeStyles((theme) => ({
@@ -31,11 +30,7 @@ export const OrganizationInfo = () => {
         <React.Fragment>
             <CssBaseline />
             <Container maxWidth="lg">
-                <Header
-                    className={classes.title}
-                    title="Legendary Tacos"
-                    // sections={sections}
-                />
+                <Navbar className={classes.title} title="Legendary Tacos" />
                 <main>
                     <div className={classes.title}>
                         <Typography variant="h4" component="h4">

@@ -9,7 +9,6 @@ import { PrivateRoute } from '../components/PrivateRoute';
 import reducer from '../reducers/rootReducer';
 import Sagas from '../sagas/Sagas';
 import { Dashboard } from './Dashboard';
-import { Landing } from './Landing';
 import { LogIn } from './LogIn';
 import { OrganizationInfo } from './OrganizationInfo';
 import { SignUp } from './SignUp';
