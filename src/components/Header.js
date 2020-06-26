@@ -30,7 +30,7 @@ export const Header = (props) => {
 
     return (
         <React.Fragment>
-            <AppBar color="default" position="static">
+            <AppBar color="default" position="fixed">
                 <Toolbar className={classes.toolbar}>
                     <Typography
                         component="h2"
@@ -42,7 +42,7 @@ export const Header = (props) => {
                     >
                         {title}
                     </Typography>
-                    <Button
+                    {/* <Button
                         size="small"
                         component={Link}
                         to="/login"
@@ -58,7 +58,7 @@ export const Header = (props) => {
                         color="primary"
                     >
                         Sign Up
-                    </Button>
+                    </Button> */}
                 </Toolbar>
                 {/* <Toolbar
                 component="nav"

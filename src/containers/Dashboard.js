@@ -44,22 +44,16 @@ const mainFeaturedPost = {
 
 const featuredPosts = [
     {
-        title: 'Featured post',
-        date: 'Nov 12',
+        title: 'Organization Info',
         description:
             'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: 'https://source.unsplash.com/random',
-        imageText: 'Image Text',
         url: '#/organization-info',
     },
     {
-        title: 'Post title',
-        date: 'Nov 11',
+        title: 'Product Info',
         description:
             'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: 'https://source.unsplash.com/random',
-        imageText: 'Image Text',
-        url: '#/dashboard',
+        url: '#/product-info',
     },
 ];
 
@@ -110,20 +104,6 @@ export const Dashboard = () => {
                             <FeaturedPost key={post.title} post={post} />
                         ))}
                     </Grid>
-                    {/* <MainFeaturedPost post={mainFeaturedPost} />
-                    <Grid container spacing={4}>
-                        {featuredPosts.map((post) => (
-                            <FeaturedPost key={post.title} post={post} />
-                        ))}
-                    </Grid>
-                    <Grid container spacing={5} className={classes.mainGrid}>
-                        <Sidebar
-                            title={sidebar.title}
-                            description={sidebar.description}
-                            archives={sidebar.archives}
-                            social={sidebar.social}
-                        />
-                    </Grid> */}
                 </main>
             </Container>
             <Footer
