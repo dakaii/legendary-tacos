@@ -20,6 +20,7 @@ function* requestLogIn(action) {
     if (response && response.status === 200) {
         const payload = yield response.json();
         localStorage.setItem('access', payload['access']);
+        localStorage.setItem('refresh', payload['refresh']);
         yield put({ type: types.LOGIN_SUCCESS, payload: payload });
     } else {
         yield put({ type: types.LOGIN_FAILURE });
@@ -44,6 +45,7 @@ function* requestSignup(action) {
     if (response && response.status === 201) {
         const payload = yield response.json();
         localStorage.setItem('access', payload['access']);
+        localStorage.setItem('refresh', payload['refresh']);
         yield put({ type: types.SIGNUP_SUCCESS, payload: payload });
     } else if (response && response.status === 400) {
         const payload = yield response.json();
@@ -83,52 +85,40 @@ function* getOrganization(action) {
         yield put({ type: types.GET_ORGANIZATION_FAILURE });
     }
 }
-// function* getConfiguration() {
-//     const url = `${MOVIE_DB_API_URL}/configuration?api_key=${API_KEY}`;
 
-//     const json = yield fetch(url).then((response) => response.json());
-
-//     yield put({ type: types.GET_CONFIG_SUCCEEDED, payload: json });
-// }
-
-// function* getGenres() {
-//     const url = `${MOVIE_DB_API_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`;
-
-//     const json = yield fetch(url).then((response) => response.json());
-
-//     yield put({ type: types.GET_GENRES_SUCCEEDED, payload: json });
-// }
-
-// function* addToWatchList(action) {
-//     const state = yield select();
-//     const currentList = state.watchList.currentList.filter(
-//         (val) => val.original_title !== action.params.movie.original_title
-//     );
-//     currentList.push(action.params.movie);
-
-//     yield put({
-//         type: types.ADD_TO_WATCHLIST_SUCCEEDED,
-//         payload: { currentList },
-//     });
-// }
-
-// function* removeFromWatchList(action) {
-//     const state = yield select();
-//     const currentList = state.watchList.currentList.filter(
-//         (val) => val.original_title !== action.params.movie.original_title
-//     );
-
-//     yield put({
-//         type: types.REMOVE_FROM_WATCHLIST_SUCCEEDED,
-//         payload: { currentList },
-//     });
-// }
+function* postOrganization(action) {
+    const url = `${config.API_URL}/api/business/organizations/`;
+    let response = null;
+    try {
+        response = yield fetch(url, {
+            method: 'post',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + localStorage.getItem('access'),
+            },
+            body: JSON.stringify(action.params),
+        });
+    } catch (error) {
+        console.log(error);
+    }
+    if (response && response.status === 200) {
+        const payload = yield response.json();
+        yield put({ type: types.POST_ORGANIZATION_SUCCESS, payload: payload });
+    } else if (response && response.status === 400) {
+        const payload = yield response.json();
+        yield put({
+            type: types.POST_ORGANIZATION_SUCCESS,
+            payload: payload,
+        });
+    } else {
+        yield put({ type: types.POST_ORGANIZATION_FAILURE });
+    }
+}
 
 export default function* () {
     yield takeLatest(types.LOGIN_REQUEST, requestLogIn);
     yield takeLatest(types.SIGNUP_REQUEST, requestSignup);
     yield takeLatest(types.GET_ORGANIZATION_REQUEST, getOrganization);
-    // yield takeLatest(types.GET_CONFIG_REQUESTED, getConfiguration);
-    // yield takeLatest(types.GET_GENRES_REQUESTED, getGenres);
-    // yield takeLatest(types.ADD_TO_WATCHLIST_REQUESTED, addToWatchList);
+    yield takeLatest(types.POST_ORGANIZATION_REQUEST, postOrganization);
 }

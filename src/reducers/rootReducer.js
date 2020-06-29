@@ -25,7 +25,6 @@ export default (state = DEFAULT_STATE, action = {}) => {
         case types.LOGIN_FAILURE:
             return {
                 ...state,
-                auth: action.payload,
                 isLoading: false,
             };
         case types.SIGNUP_REQUEST:
@@ -43,7 +42,6 @@ export default (state = DEFAULT_STATE, action = {}) => {
         case types.SIGNUP_FAILURE:
             return {
                 ...state,
-                auth: action.payload,
                 isLoading: false,
             };
         case types.GET_ORGANIZATION_REQUEST:
@@ -61,83 +59,25 @@ export default (state = DEFAULT_STATE, action = {}) => {
         case types.GET_ORGANIZATION_FAILURE:
             return {
                 ...state,
+                isLoading: false,
+            };
+        case types.POST_ORGANIZATION_REQUEST:
+            return {
+                ...state,
+                organization: action.payload,
+                isLoading: true,
+            };
+        case types.POST_ORGANIZATION_SUCCESS:
+            return {
+                ...state,
                 organization: action.payload,
                 isLoading: false,
             };
-        // case types.GET_CONFIG_FAILED:
-        //     return {
-        //         ...state,
-        //         configuration: action.payload,
-        //         isLoading: false
-        //     };
-        // case types.GET_GENRES_REQUESTED:
-        //     return {
-        //         ...state,
-        //         isLoading: true
-        //     };
-        // case types.GET_GENRES_SUCCEEDED:
-        //     return {
-        //         ...state,
-        //         genres: action.payload,
-        //         isLoading: false
-        //     };
-        // case types.GET_GENRES_FAILED:
-        //     return {
-        //         ...state,
-        //         genres: action.payload,
-        //         isLoading: false
-        //     };
-        // case types.UPCOMING_MOVIES_REQUESTED:
-        //     return {
-        //         ...state,
-        //         isLoading: true
-        //     };
-        // case types.UPCOMING_MOVIES_SUCCEEDED:
-        //     return {
-        //         ...state,
-        //         upcomingMovies: action.payload,
-        //         isLoading: false
-        //     };
-        // case types.UPCOMING_MOVIES_FAILED:
-        //     return {
-        //         ...state,
-        //         upcomingMovies: action.payload,
-        //         isLoading: false
-        //     };
-        // case types.ADD_TO_WATCHLIST_REQUESTED:
-        //     return {
-        //         ...state,
-        //         isLoading: true
-        //     };
-        // case types.ADD_TO_WATCHLIST_SUCCEEDED:
-        //     return {
-        //         ...state,
-        //         watchList: action.payload,
-        //         isLoading: false
-        //     };
-        // case types.ADD_TO_WATCHLIST_FAILED:
-        //     return {
-        //         ...state,
-        //         watchList: action.payload,
-        //         isLoading: false
-        //     };
-        // case types.REMOVE_FROM_WATCHLIST_REQUESTED:
-        //     return {
-        //         ...state,
-        //         isLoading: true
-        //     };
-        // case types.REMOVE_FROM_WATCHLIST_SUCCEEDED:
-        //     return {
-        //         ...state,
-        //         watchList: action.payload,
-        //         isLoading: false
-        //     };
-        // case types.REMOVE_FROM_WATCHLIST_FAILED:
-        //     return {
-        //         ...state,
-        //         watchList: action.payload,
-        //         isLoading: false
-        //     };
+        case types.POST_ORGANIZATION_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+            };
         default:
             return state;
     }
