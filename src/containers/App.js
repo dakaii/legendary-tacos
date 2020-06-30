@@ -1,5 +1,7 @@
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import i18next from 'i18next';
 import React from 'react';
+import { I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { applyMiddleware, compose, createStore } from 'redux';
@@ -43,21 +45,33 @@ const theme = createMuiTheme({
 });
 export const App = () => {
     return (
-        <MuiThemeProvider theme={theme}>
-            <Provider store={store}>
-                <HashRouter>
-                    <Switch>
-                        <Route exact path="/signup" component={SignUp} />
-                        <Route exact path="/login" component={LogIn} />
-                        <PrivateRoute exact path="/" component={Dashboard} />
-                        <PrivateRoute
-                            exact
-                            path="/organization-info"
-                            component={OrganizationInfo}
-                        />
-                    </Switch>
-                </HashRouter>
-            </Provider>
-        </MuiThemeProvider>
+        <React.StrictMode>
+            <I18nextProvider i18n={i18next}>
+                <MuiThemeProvider theme={theme}>
+                    <Provider store={store}>
+                        <HashRouter>
+                            <Switch>
+                                <Route
+                                    exact
+                                    path="/signup"
+                                    component={SignUp}
+                                />
+                                <Route exact path="/login" component={LogIn} />
+                                <PrivateRoute
+                                    exact
+                                    path="/"
+                                    component={Dashboard}
+                                />
+                                <PrivateRoute
+                                    exact
+                                    path="/organization-info"
+                                    component={OrganizationInfo}
+                                />
+                            </Switch>
+                        </HashRouter>
+                    </Provider>
+                </MuiThemeProvider>
+            </I18nextProvider>
+        </React.StrictMode>
     );
 };

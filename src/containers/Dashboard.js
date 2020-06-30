@@ -7,13 +7,14 @@ import React from 'react';
 import FeaturedPost from '../components/FeaturedPost';
 import { Footer } from '../components/Footer';
 import { Navbar } from '../components/Navbar';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
-    title: {
-        padding: theme.spacing(3),
+    mainContent: {
+        padding: theme.spacing(10),
     },
     mainGrid: {
-        margin: theme.spacing(0, 12),
+        margin: theme.spacing(0, 2),
     },
 }));
 
@@ -34,18 +35,17 @@ const featuredPosts = [
 
 export const Dashboard = () => {
     const classes = useStyles();
+    const { t } = useTranslation();
 
     return (
         <React.Fragment>
             <CssBaseline />
             <Container maxWidth="lg">
-                <Navbar className={classes.title} title="Legendary Tacos" />
-                <main>
-                    <div className={classes.title}>
-                        <Typography variant="h4" component="h4">
-                            Account Settings
-                        </Typography>
-                    </div>
+                <Navbar title="Legendary Tacos" />
+                <main className={classes.mainContent}>
+                    <Typography variant="h4" component="h4">
+                        {t('account-info')}
+                    </Typography>
                     <Grid container spacing={1} className={classes.mainGrid}>
                         {featuredPosts.map((post) => (
                             <FeaturedPost key={post.title} post={post} />
