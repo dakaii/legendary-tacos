@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import i18n from 'i18next';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -21,6 +22,8 @@ const useStyles = makeStyles({
 export default function FeaturedPost(props) {
     const classes = useStyles();
     const { post } = props;
+
+    console.log(i18n.language);
 
     return (
         <Grid item sm={12} md={4}>
