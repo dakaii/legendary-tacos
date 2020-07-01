@@ -42,6 +42,21 @@ export default (state = DEFAULT_STATE, action = {}) => {
                 ...state,
                 isLoading: false,
             };
+        case types.RESET_PASSWORD_REQUEST:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case types.RESET_PASSWORD_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+            };
+        case types.RESET_PASSWORD_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+            };
         default:
             return state;
     }

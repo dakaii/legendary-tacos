@@ -13,6 +13,7 @@ import Sagas from '../sagas/Sagas';
 import { Dashboard } from './Dashboard';
 import { LogIn } from './LogIn';
 import { OrganizationInfo } from './OrganizationInfo';
+import { ResetPassword } from './ResetPassword';
 import { SignUp } from './SignUp';
 
 const isDevMode =
@@ -53,6 +54,11 @@ export const App = () => {
                         <Switch>
                             <Route exact path="/signup" component={SignUp} />
                             <Route exact path="/login" component={LogIn} />
+                            <Route
+                                exact
+                                path="/reset-password"
+                                component={ResetPassword}
+                            />
                             <PrivateRoute
                                 exact
                                 path="/"

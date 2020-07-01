@@ -5,21 +5,12 @@ export const loginRequest = (params) => ({
     params,
 });
 
-// export const loginSuccess = (params) => ({
-//     type: types.LOGIN_SUCCESS,
-//     params,
-// });
-
 export const signupRequest = (params) => ({
     type: types.SIGNUP_REQUEST,
     params,
 });
 
-// export const signupSuccess = (params) => ({
-//     type: types.SIGNUP_SUCCESS,
-//     params,
-// });
-
-export const getOrganizationRequest = () => ({
-    type: types.GET_ORGANIZATION_REQUEST,
+export const resetPasswordRequest = (params) => ({
+    type: types.RESET_PASSWORD_REQUEST,
+    params,
 });

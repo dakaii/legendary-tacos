@@ -7,16 +7,14 @@ import {
     Grid,
     Link,
     TextField,
-    Typography,
+    Typography
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import jwtDecode from 'jwt-decode';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { signupRequest } from '../actions/AuthenticationAction';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { resetPasswordRequest } from '../actions/AuthenticationAction';
 import { Copyright } from '../components/Copyright';
-
+ 
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -37,30 +35,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const SignUp = () => {
+export const ResetPassword = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
-    const auth = useSelector((state) => state.auth);
     const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
     const classes = useStyles();
-
-    useEffect(() => {
-        const token = localStorage.getItem('access');
-        if (token && jwtDecode(token).exp > Date.now() / 1000) {
-            history.push('/');
-        }
-    }, [auth, history]);
 
     const submitRequest = (event) => {
         event.preventDefault();
         dispatch(
-            signupRequest({
-                username: username,
+            resetPasswordRequest({
                 email: email,
-                password: password,
-                category: 1,
             })
         );
     };
@@ -73,7 +57,7 @@ export const SignUp = () => {
                     {/* <LockOutlinedIcon /> */}
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign up
+                    Password Reset
                 </Typography>
                 <form
                     className={classes.form}
@@ -82,21 +66,6 @@ export const SignUp = () => {
                     }}
                 >
                     <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <TextField
-                                autoComplete="username"
-                                name="username"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="username"
-                                label="User Name"
-                                onChange={(e) => setUsername(e.target.value)}
-                                error={!!username && !isUsernameValid(username)}
-                                helperText={usernameHelperText(username)}
-                                autoFocus
-                            />
-                        </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 variant="outlined"
@@ -111,21 +80,6 @@ export const SignUp = () => {
                                 autoComplete="email"
                             />
                         </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                onChange={(e) => setPassword(e.target.value)}
-                                error={!!password && !isPasswordValid(password)}
-                                helperText={passwordHelperText(password)}
-                                autoComplete="current-password"
-                            />
-                        </Grid>
                     </Grid>
                     <Button
                         type="submit"
@@ -133,13 +87,9 @@ export const SignUp = () => {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        disabled={
-                            !isUsernameValid(username) ||
-                            !isEmailValid(email) ||
-                            !isPasswordValid(password)
-                        }
+                        disabled={!isEmailValid(email)}
                     >
-                        Sign Up
+                        Send the reset link
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
@@ -157,26 +107,11 @@ export const SignUp = () => {
     );
 };
 
-const isUsernameValid = (username) => {
-    return username.length > 6;
-};
-
 const isEmailValid = (email) => {
     const re = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
     return re.test(String(email).toLowerCase());
 };
 
-const isPasswordValid = (username) => {
-    return username.length > 6;
-};
-
-const usernameHelperText = (username) => {
-    return !!username && !isUsernameValid(username) ? 'invalid username' : '';
-};
 const emailHelperText = (email) => {
     return !!email && !isEmailValid(email) ? 'invalid email' : '';
-};
-
-const passwordHelperText = (password) => {
-    return !!password && !isPasswordValid(password) ? 'invalid password' : '';
 };

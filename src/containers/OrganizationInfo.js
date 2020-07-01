@@ -7,7 +7,7 @@ import { default as React, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Footer } from '../components/Footer';
 import { Navbar } from '../components/Navbar';
-import { getOrganizationRequest } from '../actions/AuthenticationAction';
+import { getOrganizationRequest } from '../actions/OrganizationAction';
 
 const useStyles = makeStyles((theme) => ({
     title: {
