@@ -54,12 +54,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const LogIn = () => {
+    const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
     const auth = useSelector((state) => state.auth);
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const classes = useStyles();
+    const [username, setUsername] = useState(
+        localStorage.getItem('loginUsername') || ''
+    );
+    const [password, setPassword] = useState(
+        localStorage.getItem('loginPassword') || ''
+    );
+    const [remember, setRemember] = useState(
+        JSON.parse(localStorage.getItem('loginRemember')) || false
+    );
 
     useEffect(() => {
         const token = localStorage.getItem('access');
@@ -70,6 +77,15 @@ export const LogIn = () => {
 
     const submitRequest = (event) => {
         event.preventDefault();
+        if (remember) {
+            localStorage.setItem('loginUsername', username);
+            localStorage.setItem('loginPassword', password);
+        } else {
+            localStorage.setItem('loginUsername', '');
+            localStorage.setItem('loginPassword', '');
+        }
+        localStorage.setItem('loginRemember', remember);
+
         dispatch(
             loginRequest({
                 username: username,
@@ -111,6 +127,7 @@ export const LogIn = () => {
                             label="User Name"
                             name="username"
                             autoComplete="username"
+                            defaultValue={username}
                             onChange={(e) => setUsername(e.target.value)}
                             error={!!username && !isUsernameValid(username)}
                             helperText={usernameHelperText(username)}
@@ -125,6 +142,7 @@ export const LogIn = () => {
                             label="Password"
                             type="password"
                             id="password"
+                            defaultValue={password}
                             onChange={(e) => setPassword(e.target.value)}
                             error={!!password && !isPasswordValid(password)}
                             helperText={passwordHelperText(password)}
@@ -132,7 +150,13 @@ export const LogIn = () => {
                         />
                         <FormControlLabel
                             control={
-                                <Checkbox value="remember" color="primary" />
+                                <Checkbox
+                                    checked={remember}
+                                    onChange={(e) =>
+                                        setRemember(e.target.checked)
+                                    }
+                                    color="primary"
+                                />
                             }
                             label="Remember me"
                         />
