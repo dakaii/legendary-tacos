@@ -36,6 +36,9 @@ sagaMiddleware.run(Sagas);
 
 const theme = createMuiTheme({
     palette: {
+        background: {
+            default: '#fff',
+        },
         primary: {
             main: '#07C',
         },

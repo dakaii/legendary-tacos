@@ -19,26 +19,26 @@ const useStyles = makeStyles({
     },
 });
 
-export default function FeaturedPost(props) {
+export const AccountInfoItem = (props) => {
     const classes = useStyles();
-    const { post } = props;
+    const { item } = props;
 
     console.log(i18n.language);
 
     return (
         <Grid item sm={12} md={4}>
-            <CardActionArea component="a" href={post.url}>
+            <CardActionArea component="a" href={item.url}>
                 <Card className={classes.card}>
                     <div className={classes.cardDetails}>
                         <CardContent>
                             <Typography component="h2" variant="h5">
-                                {post.title}
+                                {item.title}
                                 <IconButton disabled={true}>
                                     <ArrowForwardIosIcon />
                                 </IconButton>
                             </Typography>
                             <Typography variant="subtitle1" paragraph>
-                                {post.description}
+                                {item.description}
                             </Typography>
                         </CardContent>
                     </div>
@@ -46,8 +46,8 @@ export default function FeaturedPost(props) {
             </CardActionArea>
         </Grid>
     );
-}
+};
 
-FeaturedPost.propTypes = {
-    post: PropTypes.object,
+AccountInfoItem.propTypes = {
+    item: PropTypes.object,
 };

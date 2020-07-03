@@ -10,6 +10,7 @@ import { AccountMenu } from './AccountMenu';
 const useStyles = makeStyles((theme) => ({
     toolbar: {
         borderBottom: `1px solid ${theme.palette.divider}`,
+        backgroundColor: theme.palette.background.default,
     },
     toolbarTitle: {
         flex: 1,

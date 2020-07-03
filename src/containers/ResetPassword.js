@@ -7,14 +7,14 @@ import {
     Grid,
     Link,
     TextField,
-    Typography
+    Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { resetPasswordRequest } from '../actions/AuthenticationAction';
 import { Copyright } from '../components/Copyright';
- 
+
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),

@@ -9,8 +9,6 @@ function* getOrganization(action) {
         response = yield fetch(url, {
             method: 'get',
             headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + localStorage.getItem('access'),
             },
         });
@@ -38,7 +36,6 @@ function* postOrganization(action) {
         response = yield fetch(url, {
             method: 'post',
             headers: {
-                Accept: 'application/json',
                 'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + localStorage.getItem('access'),
             },

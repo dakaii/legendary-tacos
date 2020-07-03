@@ -4,10 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
-import FeaturedPost from '../components/FeaturedPost';
+import { useTranslation } from 'react-i18next';
+import { AccountInfoItem } from '../components/AccountInfoItem';
 import { Footer } from '../components/Footer';
 import { Navbar } from '../components/Navbar';
-import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
     mainContent: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const featuredPosts = [
+const accountInfoItems = [
     {
         title: 'Organization Info',
         description:
@@ -47,8 +47,8 @@ export const Dashboard = () => {
                         {t('account-info')}
                     </Typography>
                     <Grid container spacing={1} className={classes.mainGrid}>
-                        {featuredPosts.map((post) => (
-                            <FeaturedPost key={post.title} post={post} />
+                        {accountInfoItems.map((item) => (
+                            <AccountInfoItem key={item.title} item={item} />
                         ))}
                     </Grid>
                 </main>
